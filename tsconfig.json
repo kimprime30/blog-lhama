@@ -31,7 +31,10 @@
     "src/components/themeToggle/ThemeToggle.jsx",
     "src/components/navbar/Navbar.jsx",
     "src/components/authLinks/AuthLinks.jsx",
-    "src/components/featured/Featured.jsx"
+    "src/components/featured/Featured.jsx",
+    "src/components/categoryList/CategoryList.jsx",
+    "src/components/cardList/CardList.jsx",
+    "src/components/menu/Menu.jsx"
   ],
   "exclude": ["node_modules"]
 }
