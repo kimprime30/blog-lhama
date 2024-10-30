@@ -34,7 +34,9 @@
     "src/components/featured/Featured.jsx",
     "src/components/categoryList/CategoryList.jsx",
     "src/components/cardList/CardList.jsx",
-    "src/components/menu/Menu.jsx"
+    "src/components/menu/Menu.jsx",
+    "src/components/pagination/Pagination.jsx",
+    "src/components/footer/Footer.jsx"
   ],
   "exclude": ["node_modules"]
 }
