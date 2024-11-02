@@ -36,7 +36,8 @@
     "src/components/cardList/CardList.jsx",
     "src/components/menu/Menu.jsx",
     "src/components/pagination/Pagination.jsx",
-    "src/components/footer/Footer.jsx"
+    "src/components/footer/Footer.jsx",
+    "src/utils/auth.js"
   ],
   "exclude": ["node_modules"]
 }
