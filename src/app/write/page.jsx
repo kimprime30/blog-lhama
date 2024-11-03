@@ -4,13 +4,27 @@ import Image from "next/image";
 import styles from "./writePage.module.css";
 import { useState } from "react";
 import "react-quill/dist/quill.bubble.css";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 // Importa o ReactQuill dinamicamente, apenas no lado do cliente
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const WritePage = () => {
+  const { status } = useSession();
+
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+
+  if (status === "loading") {
+    return <div className={styles.loading}>Loading...</div>;
+  }
+
+  if (status === "unauthenticated") {
+    router.push("/");
+  }
 
   return (
     <div className={styles.container}>
