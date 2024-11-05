@@ -23,22 +23,27 @@
   border-radius: 10px;
 }
 
-.category.style {
+.category.geral {
   background-color: #57c4ff31;
 }
-.category.fashion {
+
+.category.organica {
   background-color: #da85c731;
 }
-.category.food {
+
+.category.cotidiano {
   background-color: #7fb88133;
 }
-.category.travel {
+
+.category.curiosidades {
   background-color: #ff795736;
 }
-.category.culture {
+
+.category.bioquimica {
   background-color: #ffb04f45;
 }
-.category.coding {
+
+.category.nobel {
   background-color: #5e4fff31;
 }
 
