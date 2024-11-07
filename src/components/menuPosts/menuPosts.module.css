@@ -17,6 +17,7 @@
   aspect-ratio: 1/1;
   position: relative;
 }
+
 .image {
   border-radius: 50%;
   border: 3px solid lightgray;
@@ -29,6 +30,7 @@
   flex-direction: column;
   gap: 5px;
 }
+
 .category {
   padding: 3px 8px;
   border-radius: 10px;
@@ -36,23 +38,30 @@
   color: white;
   width: max-content;
 }
-.category.travel {
-  background-color: #ff7857;
+
+/* Especificação das cores das categorias */
+.category.geral {
+  background-color: #789cff;
 }
-.category.culture {
-  background-color: #ffb14f;
-}
-.category.food {
-  background-color: #7fb881;
-}
-.category.fashion {
+
+.category.organica {
   background-color: #ff7887;
 }
-.category.coding {
-  background-color: #775aec;
+
+.category.cotidiano {
+  background-color: #7fb881;
 }
-.category.style {
-  background-color: #789cff;
+
+.category.curiosidades {
+  background-color: #ff7857;
+}
+
+.category.bioquimica {
+  background-color: #ffb14f;
+}
+
+.category.nobel {
+  background-color: #775aec;
 }
 
 .postTitle {
@@ -63,4 +72,12 @@
 
 .detail {
   font-size: 12px;
+  color: gray;
+  display: flex;
+  gap: 10px;
+}
+
+.username,
+.date {
+  margin-right: 10px;
 }

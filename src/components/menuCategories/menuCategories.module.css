@@ -3,30 +3,51 @@
   margin-bottom: 60px;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 15px; /* Ajuste o espaçamento entre os itens */
+  justify-content: center; /* Centraliza os itens em telas menores */
 }
 
 .categoryItem {
-  padding: 10px 25px;
-  border-radius: 10px;
+  padding: 10px 20px;
+  border-radius: 8px;
   font-size: 14px;
+  color: #fff; /* Cor do texto para contraste */
+  font-weight: 500;
+  transition: transform 0.2s ease, background-color 0.2s ease; /* Suaviza transformações */
 }
 
-.categoryItem.travel {
+.categoryItem:hover {
+  transform: scale(1.05); /* Aumenta o item levemente ao passar o mouse */
+  filter: brightness(1.1); /* Ilumina um pouco ao passar o mouse */
+}
+
+/* Cores para cada categoria */
+.categoryItem.curiosidades {
   background-color: #ff7857;
 }
-.categoryItem.culture {
+.categoryItem.bioquimica {
   background-color: #ffb14f;
 }
-.categoryItem.food {
+.categoryItem.cotidiano {
   background-color: #7fb881;
 }
-.categoryItem.fashion {
+.categoryItem.organica {
   background-color: #ff7887;
 }
-.categoryItem.coding {
+.categoryItem.nobel {
   background-color: #775aec;
 }
-.categoryItem.style {
+.categoryItem.geral {
   background-color: #789cff;
+}
+
+/* Responsividade */
+@media screen and (max-width: 768px) {
+  .categoryItem {
+    font-size: 13px; /* Reduz um pouco o tamanho da fonte */
+    padding: 8px 16px; /* Reduz o padding em telas menores */
+  }
+  .categoryList {
+    gap: 10px; /* Reduz o espaçamento entre itens */
+  }
 }

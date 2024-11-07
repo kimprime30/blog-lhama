@@ -1,18 +1,37 @@
 .container {
   flex: 2;
   margin-top: 60px;
+  padding: 1rem; /* Adiciona um pouco de padding interno */
 }
 
 .subtitle {
-  color: gray;
+  color: #888; /* Cor cinza mais clara para contraste */
   font-size: 16px;
   font-weight: 400;
+  margin-bottom: 0.5rem; /* Espaçamento entre subtítulo e título */
 }
+
 .title {
   font-size: 28px;
+  font-weight: 700; /* Destaca mais o título */
+  color: #333; /* Cor mais escura para contraste */
+  margin-bottom: 1rem; /* Espaçamento entre o título e o conteúdo */
+}
+
+.section {
+  margin-bottom: 2rem; /* Espaçamento entre as seções */
 }
 
 @media screen and (max-width: 1024px) {
+  .container {
+    margin-top: 40px; /* Ajusta a margem superior em telas menores */
+  }
+  .title {
+    font-size: 24px; /* Reduz um pouco o título em telas menores */
+  }
+  .subtitle {
+    font-size: 14px; /* Reduz o subtítulo em telas menores */
+  }
   .imageContainer {
     display: none;
   }
