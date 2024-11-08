@@ -2,34 +2,29 @@ import Link from "next/link";
 import React from "react";
 import styles from "./menuCategories.module.css";
 
+const categories = [
+  { slug: "geral", title: "Geral" },
+  { slug: "organica", title: "Orgânica" },
+  { slug: "cotidiano", title: "Cotidiano" },
+  { slug: "curiosidades", title: "Curiosidades" },
+  { slug: "bioquimica", title: "Bioquímica" },
+  { slug: "nobel", title: "Nobel" },
+];
+
 const MenuCategories = () => {
+  console.log("Rendering MenuCategories with categories:", categories); // Adiciona um log para verificar as categorias
+
   return (
     <div className={styles.categoryList}>
-      <Link
-        href="/blog?cat=style"
-        className={`${styles.categoryItem} ${styles.geral}`}
-      >
-        Geral
-      </Link>
-      <Link
-        href="/blog"
-        className={`${styles.categoryItem} ${styles.organica}`}
-      >
-        Orgânica
-      </Link>
-      <Link
-        href="/blog"
-        className={`${styles.categoryItem} ${styles.travel}`}
-      ></Link>
-      <Link href="" className={`${styles.categoryItem} ${styles.curiosidades}`}>
-        Curiosidades
-      </Link>
-      <Link href="" className={`${styles.categoryItem} ${styles.bioquimica}`}>
-        Bioquímica
-      </Link>
-      <Link href="" className={`${styles.categoryItem} ${styles.nobel}`}>
-        Nobel
-      </Link>
+      {categories.map((category) => (
+        <Link
+          key={category.slug}
+          href={`/blog?cat=${category.slug}`}
+          className={`${styles.categoryItem} ${styles[category.slug]}`}
+        >
+          {category.title}
+        </Link>
+      ))}
     </div>
   );
 };

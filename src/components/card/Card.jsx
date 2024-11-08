@@ -2,9 +2,11 @@ import Image from "next/image";
 import styles from "./card.module.css";
 import Link from "next/link";
 
-const Card = ({ key, item }) => {
+const Card = ({ item }) => {
+  console.log("Rendering Card for item:", item); // Adiciona um log para verificar o item
+
   return (
-    <div className={styles.container} key={key}>
+    <div className={styles.container}>
       {item.img && (
         <div className={styles.imageContainer}>
           <Image src={item.img} alt="" fill className={styles.image} />

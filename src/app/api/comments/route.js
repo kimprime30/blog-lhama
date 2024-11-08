@@ -30,22 +30,38 @@ export const POST = async (req) => {
   const session = await getAuthSession();
 
   if (!session) {
-    return new NextResponse(
-      JSON.stringify({ message: "Not Authenticated!" }, { status: 401 })
-    );
+    return new NextResponse(JSON.stringify({ message: "Not Authenticated!" }), {
+      status: 401,
+    });
   }
 
   try {
     const body = await req.json();
+
+    // Verificar se os dados estão completos
+    if (!body.desc || !body.postSlug) {
+      return new NextResponse(
+        JSON.stringify({ message: "Missing required fields" }),
+        { status: 400 }
+      );
+    }
+
     const comment = await prisma.comment.create({
-      data: { ...body, userEmail: session.user.email },
+      data: {
+        ...body,
+        userEmail: session.user.email, // Assumindo que você já tenha o email do usuário na sessão
+      },
+      include: {
+        user: true, // Incluir informações do usuário, como o nome e imagem
+      },
     });
 
-    return new NextResponse(JSON.stringify(comment, { status: 200 }));
+    return new NextResponse(JSON.stringify(comment), { status: 200 });
   } catch (err) {
-    console.log(err);
+    console.error(err); // Log de erro
     return new NextResponse(
-      JSON.stringify({ message: "Something went wrong!" }, { status: 500 })
+      JSON.stringify({ message: "Something went wrong!" }),
+      { status: 500 }
     );
   }
 };

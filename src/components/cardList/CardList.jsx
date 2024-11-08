@@ -2,6 +2,7 @@ import styles from "./cardList.module.css";
 import Pagination from "../pagination/Pagination";
 import Card from "../card/Card";
 
+// Função para obter os posts
 const getData = async (page, cat) => {
   const res = await fetch(
     `http://localhost:3000/api/posts?page=${page}&cat=${cat || ""}`,
@@ -25,16 +26,22 @@ const CardList = async ({ page, cat }) => {
   const hasPrev = POST_PER_PAGE * (page - 1) > 0;
   const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
 
+  console.log("Rendering CardList with posts:", posts); // Adiciona um log para verificar os posts
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Posts Recentes</h1>
       <div className={styles.posts}>
         {posts?.map((item) => (
-          <Card item={item} key={item._id} />
+          <Card
+            key={item._id} // Usando o _id como chave única
+            item={item} // Passando o item para o Card
+          />
         ))}
       </div>
       <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext} />
     </div>
   );
 };
+
 export default CardList;
