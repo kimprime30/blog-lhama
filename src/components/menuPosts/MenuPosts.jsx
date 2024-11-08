@@ -1,82 +1,42 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import styles from "./menuPosts.module.css";
+import { useEffect, useState } from "react";
+import Card from "../card/Card";
 
 const MenuPosts = ({ withImage, type }) => {
   const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      setIsLoading(true);
+    const fetchData = async () => {
       try {
-        const response = await fetch(`/api/posts?type=${type}`);
-        if (!response.ok) throw new Error("Erro ao buscar posts");
-
-        const data = await response.json();
-        setPosts(data.posts || []);
+        const res = await fetch(
+          `/api/posts?${
+            type === "mostViewed" ? "mostViewed=true" : "recommended=true"
+          }`
+        );
+        const data = await res.json();
+        setPosts(data.posts);
       } catch (error) {
-        console.error("Erro ao buscar posts:", error);
-        setError("Não foi possível carregar os posts.");
+        console.error("Error fetching posts:", error);
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
 
-    fetchPosts();
+    fetchData();
   }, [type]);
 
-  if (isLoading) {
-    return <p className={styles.loading}>Carregando posts...</p>;
-  }
-
-  if (error) {
-    return <p className={styles.error}>{error}</p>;
-  }
-
-  console.log("Rendering MenuPosts with posts:", posts); // Adiciona um log para verificar os posts
-
   return (
-    <div className={styles.items}>
-      {posts.length > 0 ? (
+    <div>
+      {loading ? (
+        <p>Loading posts...</p>
+      ) : posts.length > 0 ? (
         posts.map((post) => (
-          <Link
-            key={`${post.id}-${post.slug}`} // Chave combinando id e slug
-            href={`/post/${post.slug}`}
-            className={styles.item}
-          >
-            {withImage && post.imageUrl && (
-              <div className={styles.imageContainer}>
-                <Image
-                  src={post.imageUrl}
-                  alt={post.title}
-                  fill
-                  className={styles.image}
-                />
-              </div>
-            )}
-            <div className={styles.textContainer}>
-              <span
-                className={`${styles.category} ${
-                  post.category ? styles[post.category.toLowerCase()] : ""
-                }`}
-              >
-                {post.category || "Sem Categoria"}
-              </span>
-              <h3 className={styles.postTitle}>{post.title}</h3>
-              <div className={styles.detail}>
-                <span className={styles.username}>{post.author}</span>
-                <span className={styles.date}>{post.date}</span>
-              </div>
-            </div>
-          </Link>
+          <Card key={post._id} item={post} withImage={withImage} />
         ))
       ) : (
-        <p className={styles.noPosts}>Nenhum post encontrado</p>
+        <p>Esta categoria ainda não possui conteúdo.</p>
       )}
     </div>
   );

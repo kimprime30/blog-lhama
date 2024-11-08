@@ -4,19 +4,21 @@ import { NextResponse } from "next/server";
 
 export const GET = async (req) => {
   const { searchParams } = new URL(req.url);
-  const page = parseInt(searchParams.get("page"), 10) || 1; // Garante que `page` seja ao menos `1`
+  const page = parseInt(searchParams.get("page"), 10) || 1;
   const cat = searchParams.get("cat");
-  const mostViewed = searchParams.get("mostViewed") === "true"; // Novo parâmetro
+  const mostViewed = searchParams.get("mostViewed") === "true";
+  const recommended = searchParams.get("recommended") === "true";
 
   const POST_PER_PAGE = 2;
 
   const query = {
-    take: mostViewed ? 4 : POST_PER_PAGE,
-    skip: mostViewed ? 0 : POST_PER_PAGE * (Math.max(page, 1) - 1), // Garante que `skip` seja ao menos `0`
+    take: mostViewed || recommended ? 4 : POST_PER_PAGE,
+    skip: mostViewed || recommended ? 0 : POST_PER_PAGE * (page - 1),
     where: {
       ...(cat && { catSlug: cat }),
+      ...(recommended && { recommended: true }),
     },
-    ...(mostViewed && { orderBy: { views: "desc" } }), // Ordena por mais visualizados se mostViewed for true
+    ...(mostViewed && { orderBy: { views: "desc" } }),
   };
 
   try {

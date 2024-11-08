@@ -25,8 +25,6 @@ const sections = [
 ];
 
 const Menu = () => {
-  console.log("Rendering Menu with sections:", sections); // Adiciona um log para verificar as seções
-
   return (
     <div className={styles.container}>
       {sections.map((section) => (
@@ -34,7 +32,6 @@ const Menu = () => {
           <h2 className={styles.subtitle}>{section.subtitle}</h2>
           <h1 className={styles.title}>{section.title}</h1>
           {React.cloneElement(section.component, { key: section.id })}{" "}
-          {/* Adiciona a chave ao componente */}
         </div>
       ))}
     </div>

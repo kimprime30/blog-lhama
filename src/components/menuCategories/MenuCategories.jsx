@@ -12,8 +12,6 @@ const categories = [
 ];
 
 const MenuCategories = () => {
-  console.log("Rendering MenuCategories with categories:", categories); // Adiciona um log para verificar as categorias
-
   return (
     <div className={styles.categoryList}>
       {categories.map((category) => (
