@@ -2,10 +2,10 @@ import Image from "next/image";
 import styles from "./card.module.css";
 import Link from "next/link";
 
-const Card = ({ item }) => {
+const Card = ({ item, withImage }) => {
   return (
     <div className={styles.container}>
-      {item.img && (
+      {withImage && item.img && (
         <div className={styles.imageContainer}>
           <Image src={item.img} alt="" fill className={styles.image} />
         </div>

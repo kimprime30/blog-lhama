@@ -43,11 +43,20 @@ model User {
   email         String    @unique
   emailVerified DateTime?
   image         String?
+  role          Role      @default(USER)
+  password      String?    // Este campo deve ser obrigatório
   accounts      Account[]
   sessions      Session[]
   Post          Post[]
   Comment       Comment[]
 }
+
+enum Role {
+  USER
+  ADMIN
+}
+
+
 
 model VerificationToken {
   identifier String   @id @map("_id")
