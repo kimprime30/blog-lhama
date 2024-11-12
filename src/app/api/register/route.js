@@ -5,17 +5,15 @@ import { NextResponse } from "next/server";
 export const POST = async (req) => {
   try {
     const body = await req.json();
-    const { email, password } = body;
+    const { name, email, password } = body; // Incluindo o nome
 
-    // Validação extra no backend
-    if (!email || !password) {
+    if (!name || !email || !password) {
       return new NextResponse(
-        JSON.stringify({ message: "Email e senha são obrigatórios." }),
+        JSON.stringify({ message: "Nome, e-mail e senha são obrigatórios." }),
         { status: 400 }
       );
     }
 
-    // Verifica se o email já está registrado
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       return new NextResponse(
@@ -24,17 +22,15 @@ export const POST = async (req) => {
       );
     }
 
-    // Gera o hash da senha
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Log para depuração
-    console.log("Email:", email);
-    console.log("Hashed Password:", hashedPassword);
-
-    // Cria o usuário no banco de dados com a senha hash
     const user = await prisma.user.create({
-      data: { email, password: hashedPassword },
+      data: {
+        name, // Passando o nome para o banco de dados
+        email,
+        password: hashedPassword,
+      },
     });
 
     return new NextResponse(JSON.stringify(user), { status: 201 });

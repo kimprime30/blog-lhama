@@ -38,7 +38,8 @@
     "src/components/pagination/Pagination.jsx",
     "src/components/footer/Footer.jsx",
     "src/utils/auth.js",
-    "src/app/page.jsx"
+    "src/app/page.jsx",
+    "src/app/layout.jsx"
   ],
   "exclude": ["node_modules"]
 }

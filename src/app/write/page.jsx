@@ -88,7 +88,7 @@ const WritePage = () => {
         desc: value,
         img: media,
         slug: slugify(title),
-        catSlug: catSlug || "geral",
+        catSlug: catSlug || "geral", //If not selected, choose the general category
       }),
     });
 
@@ -110,6 +110,7 @@ const WritePage = () => {
         className={styles.select}
         onChange={(e) => setCatSlug(e.target.value)}
       >
+        <option value="">Selecione uma categoria</option>
         <option value="geral">geral</option>
         <option value="organica">organica</option>
         <option value="cotidiano">cotidiano</option>

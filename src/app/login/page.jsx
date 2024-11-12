@@ -6,7 +6,7 @@ import styles from "./loginPage.module.css";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
-  const { status } = useSession();
+  const { status, data: session } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,8 +14,8 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      console.log("Usuário autenticado, redirecionando para a página inicial.");
-      router.push("/");
+      console.log("Usuário autenticado, redirecionando para a home");
+      router.push("/"); // Redirecionar para a página inicial
     }
   }, [status, router]);
 
@@ -25,7 +25,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Tentando fazer login com:", { email, password });
+    console.log("Tentando fazer login com email:", email);
 
     const res = await signIn("credentials", {
       email,
@@ -33,14 +33,23 @@ const LoginPage = () => {
       redirect: false,
     });
 
+    console.log("Resposta de login:", res); // Exibindo a resposta do login
     if (res?.error) {
-      console.error("Erro ao fazer login:", res.error);
       setError(res.error);
+      console.error("Erro de login:", res.error);
     } else {
-      console.log("Login bem-sucedido, redirecionando para a página inicial.");
-      router.push("/");
+      console.log("Login bem-sucedido! Redirecionando...", status);
+      // Verifique se a sessão foi atualizada antes de redirecionar
+      if (status === "authenticated") {
+        router.push("/"); // Redirecionar após login bem-sucedido
+      } else {
+        console.error("Falha ao atualizar a sessão após o login.");
+      }
     }
   };
+
+  console.log("Status da sessão:", status);
+  console.log("Sessão atual:", session); // Exibindo informações da sessão atual
 
   return (
     <div className={styles.container}>

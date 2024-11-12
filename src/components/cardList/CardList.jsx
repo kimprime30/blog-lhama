@@ -20,9 +20,9 @@ const getData = async (page, cat) => {
 const CardList = async ({ page, cat }) => {
   const { posts, count } = await getData(page, cat);
 
-  const POST_PER_PAGE = 2;
-  const hasPrev = POST_PER_PAGE * (page - 1) > 0;
-  const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
+  const POST_PER_PAGE = 8; // Ajuste conforme a quantidade de posts desejada por página
+  const hasPrev = page > 1;
+  const hasNext = page * POST_PER_PAGE < count; // Verifica se há mais posts que o limite da página atual
 
   return (
     <div className={styles.container}>

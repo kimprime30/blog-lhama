@@ -29,39 +29,67 @@ export const authOptions = {
           where: { email: credentials?.email },
         });
 
-        if (
-          user &&
-          (await bcrypt.compare(credentials?.password || "", user.password))
-        ) {
-          console.log("Usuário encontrado:", user);
-          return user;
+        if (user) {
+          const passwordMatch = await bcrypt.compare(
+            credentials?.password || "",
+            user.password
+          );
+          console.log("Senha válida?", passwordMatch);
+
+          if (passwordMatch) {
+            console.log("Usuário encontrado:", user);
+            return {
+              id: user.id,
+              email: user.email,
+              role: user.role,
+            }; // Retornar apenas o necessário
+          } else {
+            console.error(
+              "Senha incorreta para o usuário:",
+              credentials?.email
+            );
+            return null;
+          }
         } else {
-          console.error("Usuário não encontrado ou senha incorreta.");
+          console.error("Usuário não encontrado:", credentials?.email);
           return null;
         }
       },
     }),
   ],
   callbacks: {
-    async session({ session, user }) {
-      console.log("Sessão criada para o usuário:", user);
-      session.user.id = user.id;
-      session.user.role = user.role;
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role; // Adicionando role no JWT
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Aqui você usa o JWT para atualizar a sessão
+      if (token) {
+        session.user.id = token.id;
+        session.user.role = token.role; // Atribuindo role do JWT à sessão
+      } else {
+        console.error("Token não encontrado");
+      }
       return session;
     },
-    async signIn({ user, account, profile }) {
-      console.log("Tentativa de login:", { user, account, profile });
-      // Caso o login seja via OAuth, uma senha não é necessária
-      if (!user.password) {
-        user.password = ""; // Define um valor padrão ou deixa em branco
+    async signIn({ user }) {
+      // Garantir que a senha não está sendo enviada para o cliente
+      if (user && user.password) {
+        delete user.password; // Remover a senha para não ser exposta
       }
       return true;
     },
   },
   pages: {
-    signIn: "/login", // Customiza a página de login se necessário
+    signIn: "/login", // Página personalizada de login
   },
   secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt", // Usar JWT em vez de sessões baseadas em banco
+  },
 };
 
 export const getAuthSession = () => getServerSession(authOptions);
