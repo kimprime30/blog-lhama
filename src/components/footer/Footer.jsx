@@ -8,8 +8,14 @@ const Footer = () => {
     <div className={styles.container}>
       <div className={styles.info}>
         <div className={styles.logo}>
-          <Image src="/logo.png" alt="doctorKim blog" width={50} height={50} />
-          <h1 className={styles.logoText}>DoctorKimBlog</h1>
+          <Image
+            src="/blog.png"
+            alt="doctorKim blog"
+            width={50}
+            height={50}
+            className={styles.logoImg}
+          />
+          <h1 className={styles.logoText}>DoctorKim</h1>
         </div>
         <p className={styles.desc}>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio fugiat

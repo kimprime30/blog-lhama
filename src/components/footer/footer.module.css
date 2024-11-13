@@ -19,7 +19,9 @@
   align-items: center;
   gap: 10px;
 }
-
+.logoImg {
+  border-radius: 50%;
+}
 .logoText {
   font-size: 24px;
 }

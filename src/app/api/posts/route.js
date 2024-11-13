@@ -41,3 +41,49 @@ export const GET = async (req) => {
     );
   }
 };
+
+export const POST = async (req) => {
+  const session = await getAuthSession();
+
+  if (!session) {
+    return new NextResponse(JSON.stringify({ message: "Not Authenticated!" }), {
+      status: 401,
+    });
+  }
+
+  try {
+    // Parse o corpo da requisição
+    const { title, desc, img, catSlug = "geral" } = await req.json();
+
+    // Slugify title para criar o campo slug
+    const slugify = (str) =>
+      str
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/[\s_-]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+
+    const slug = slugify(title);
+
+    // Criação do post
+    const post = await prisma.post.create({
+      data: {
+        title,
+        desc,
+        img,
+        slug,
+        catSlug,
+        userEmail: session.user.email,
+      },
+    });
+
+    return new NextResponse(JSON.stringify(post), { status: 200 });
+  } catch (err) {
+    console.error(err);
+    return new NextResponse(
+      JSON.stringify({ message: "Something went wrong!" }),
+      { status: 500 }
+    );
+  }
+};
