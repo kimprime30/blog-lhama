@@ -48,9 +48,6 @@ const LoginPage = () => {
     }
   };
 
-  console.log("Status da sessão:", status);
-  console.log("Sessão atual:", session); // Exibindo informações da sessão atual
-
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>

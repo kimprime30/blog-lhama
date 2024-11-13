@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "@/providers/ThemeProvider";
 import AuthProvider from "@/providers/AuthProvider";
+import "./globals.css";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth"; // Importando as opções de autenticação

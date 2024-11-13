@@ -1,50 +1,189 @@
+/* Container Principal */
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 60px;
+  min-height: 100vh;
+  background-color: var(--primaryBg); /* Adicionando um fundo mais sutil */
+  padding: 20px;
 }
 
+/* Wrapper do Formulário */
 .wrapper {
   background-color: var(--softBg);
-  padding: 150px 200px;
+  padding: 40px 50px;
   display: flex;
   flex-direction: column;
-  gap: 50px;
-  border-radius: 10px;
+  gap: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.wrapper:hover {
+  transform: scale(1.02); /* Pequeno efeito de zoom ao passar o mouse */
+}
+
+/* Título do Formulário */
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--primaryText);
+}
+
+/* Campo de Erro */
+.error {
+  color: red;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Formulário */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Grupo de Entrada (label + input) */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilo dos Labels */
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: var(--secondaryText);
+}
+
+/* Estilo dos Inputs */
+.input {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  border-color: var(--primaryColor); /* Cor de foco */
+  outline: none;
+}
+
+/* Botão de Submissão */
+.submitButton {
+  background-color: var(--primaryColor);
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: var(--primaryColorHover);
+}
+
+/* Rodapé - Link de Cadastro */
+.footer {
+  text-align: center;
+  font-size: 14px;
+  color: var(--secondaryText);
+}
+
+.footer .link {
+  color: var(--primaryColor);
+  text-decoration: none;
+}
+
+.footer .link:hover {
+  text-decoration: underline;
+}
+
+/* Botões de Login Social */
+.socialWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .socialButton {
-  padding: 20px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
 }
 
 .socialButton:first-child {
-  background-color: #ff5555;
-}
-.socialButton:nth-child(2) {
-  background-color: #111;
-}
-.socialButton:nth-child(3) {
-  background-color: #087bea;
+  background-color: #db4437; /* Google */
 }
 
-@media screen and (max-width: 768px) {
-  .wrapper {
-    padding: 50px 100px;
-  }
+.socialButton:nth-child(2) {
+  background-color: #333; /* Github */
 }
-@media screen and (max-width: 640px) {
+
+.socialButton:nth-child(3) {
+  background-color: #3b5998; /* Facebook */
+}
+
+.socialButton:hover {
+  opacity: 0.8;
+}
+
+/* Responsividade */
+@media screen and (max-width: 768px) {
   .wrapper {
     padding: 30px;
   }
 
-  .socialButton {
-    font-weight: 400;
+  .title {
+    font-size: 20px;
+  }
+
+  .input {
     font-size: 14px;
+  }
+
+  .submitButton {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .input {
+    font-size: 14px;
+  }
+
+  .submitButton {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .socialButton {
+    font-size: 14px;
+    padding: 10px;
   }
 }
