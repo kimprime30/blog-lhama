@@ -1,0 +1,60 @@
+/* posts.module.css */
+.container {
+  padding: 20px;
+  background-color: var(--softBg);
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.newPost {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.newPost:hover {
+  background-color: #45a049;
+}
+
+.postsList {
+  list-style: none;
+  padding: 0;
+}
+
+.postItem {
+  background-color: var(--softBg);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recommendButton,
+.deleteButton {
+  background-color: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.recommendButton:hover,
+.deleteButton:hover {
+  background-color: #d32f2f;
+}
+
+.recommendButton {
+  background-color: #4caf50;
+}
+
+.recommendButton:hover {
+  background-color: #388e3c;
+}

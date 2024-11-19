@@ -9,16 +9,19 @@ export const GET = async (req) => {
   if (!session) return new NextResponse("Não autenticado", { status: 401 });
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
-      select: { name: true, email: true },
+    // Buscando todos os usuários com o campo 'role'
+    const users = await prisma.user.findMany({
+      select: { id: true, name: true, email: true, role: true },
     });
-    if (!user)
-      return new NextResponse("Usuário não encontrado", { status: 404 });
-    return new NextResponse(JSON.stringify(user), { status: 200 });
+
+    if (!users || users.length === 0) {
+      return new NextResponse("Nenhum usuário encontrado", { status: 404 });
+    }
+
+    return new NextResponse(JSON.stringify(users), { status: 200 });
   } catch (error) {
-    console.error("Erro ao buscar perfil:", error);
-    return new NextResponse("Erro ao buscar perfil", { status: 500 });
+    console.error("Erro ao buscar usuários:", error);
+    return new NextResponse("Erro ao buscar usuários", { status: 500 });
   }
 };
 

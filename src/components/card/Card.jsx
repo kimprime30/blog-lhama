@@ -1,8 +1,15 @@
+import DOMPurify from "dompurify";
 import Image from "next/image";
 import styles from "./card.module.css";
 import Link from "next/link";
 
 const Card = ({ item, withImage }) => {
+  // Verifica se está no ambiente cliente para evitar erros no SSR
+  const sanitizedDesc =
+    typeof window !== "undefined"
+      ? DOMPurify.sanitize(item.desc.substring(0, 60))
+      : item.desc.substring(0, 60);
+
   return (
     <div className={styles.container}>
       {withImage && item.img && (
@@ -20,7 +27,10 @@ const Card = ({ item, withImage }) => {
         <Link href={`/posts/${item.slug}`}>
           <h1>{item.title}</h1>
         </Link>
-        <p className={styles.desc}>{item.desc.substring(0, 60)}</p>
+        <div
+          className={styles.desc}
+          dangerouslySetInnerHTML={{ __html: sanitizedDesc }}
+        ></div>
         <Link href={`/posts/${item.slug}`} className={styles.link}>
           Leia mais
         </Link>

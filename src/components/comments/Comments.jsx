@@ -23,7 +23,7 @@ const fetcher = async (url) => {
 const Comments = ({ postSlug }) => {
   const { status } = useSession();
   const { data, mutate, isLoading } = useSWR(
-    `http://localhost:3000/api/comments?postSlug=${postSlug}`,
+    `http://localhost:3000/api/comments?postSlug=${postSlug}&approved=true`,
     fetcher
   );
 
@@ -31,9 +31,9 @@ const Comments = ({ postSlug }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async () => {
-    if (!desc.trim()) return; // Verifica se há conteúdo no comentário
+    if (!desc.trim()) return;
 
-    setIsSubmitting(true); // Desativa o botão enquanto envia
+    setIsSubmitting(true);
     try {
       const res = await fetch("/api/comments", {
         method: "POST",
@@ -46,12 +46,14 @@ const Comments = ({ postSlug }) => {
         throw new Error(errorData.message || "Failed to submit comment");
       }
 
-      mutate(); // Atualiza os comentários após o envio bem-sucedido
-      setDesc(""); // Limpa o campo de comentário
+      // Chama o mutate para atualizar os dados dos comentários após o envio
+      mutate(); // Isso deve revalidar os dados e atualizar a lista de comentários.
+
+      setDesc(""); // Limpa o campo de descrição após o envio
     } catch (error) {
       console.error("Error submitting comment:", error.message);
     } finally {
-      setIsSubmitting(false); // Reativa o botão
+      setIsSubmitting(false);
     }
   };
 
@@ -81,8 +83,9 @@ const Comments = ({ postSlug }) => {
       <div className={styles.comments}>
         {isLoading
           ? "Loading..."
-          : data
-              ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          : Array.isArray(data.comments) && data.comments.length > 0
+          ? data.comments
+              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
               .map((item) => (
                 <div className={styles.comment} key={item.id}>
                   <div className={styles.user}>
@@ -104,7 +107,8 @@ const Comments = ({ postSlug }) => {
                   </div>
                   <p className={styles.desc}>{item.desc}</p>
                 </div>
-              ))}
+              ))
+          : "No comments available."}
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ export const GET = async (req) => {
   const mostViewed = searchParams.get("mostViewed") === "true";
   const recommended = searchParams.get("recommended") === "true";
 
-  const POST_PER_PAGE = 8; // Quantidade de posts por página
+  const POST_PER_PAGE = 6; // Quantidade de posts por página
 
   // Definindo os parâmetros de consulta
   const query = {
@@ -19,7 +19,7 @@ export const GET = async (req) => {
       ...(cat && { catSlug: cat }),
       ...(recommended && { recommended: true }),
     },
-    ...(mostViewed && { orderBy: { views: "desc" } }),
+    orderBy: mostViewed ? { views: "desc" } : { createdAt: "desc" }, // Ordenar por mais recentes
   };
 
   try {
@@ -34,7 +34,7 @@ export const GET = async (req) => {
       status: 200,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return new NextResponse(
       JSON.stringify({ message: "Something went wrong!" }),
       { status: 500 }

@@ -1,10 +1,9 @@
-// Este código permanece com 'use client' para o uso de hooks como useState e useEffect
 "use client";
 import { useState, useEffect } from "react";
 import Menu from "@/components/menu/Menu";
 import styles from "./singlePage.module.css";
 import Image from "next/image";
-import Comments from "@/components/comments/Comments";
+import Comments from "@/components/comments/Comments"; // Certifique-se da importação correta
 
 const SinglePage = ({ params }) => {
   const { slug } = params;
@@ -38,7 +37,6 @@ const SinglePage = ({ params }) => {
     return <div>Carregando...</div>;
   }
 
-  // Formata a data para o formato desejado
   const formattedDate = new Date(data.createdAt).toLocaleDateString("pt-BR", {
     day: "2-digit",
     month: "2-digit",

@@ -20,7 +20,7 @@ const getData = async (page, cat) => {
 const CardList = async ({ page, cat }) => {
   const { posts, count } = await getData(page, cat);
 
-  const POST_PER_PAGE = 8; // Ajuste conforme a quantidade de posts desejada por página
+  const POST_PER_PAGE = 6; // Ajuste conforme a quantidade de posts desejada por página
   const hasPrev = page > 1;
   const hasNext = page * POST_PER_PAGE < count; // Verifica se há mais posts que o limite da página atual
 
@@ -28,9 +28,11 @@ const CardList = async ({ page, cat }) => {
     <div className={styles.container}>
       <h1 className={styles.title}>Posts Recentes</h1>
       <div className={styles.posts}>
-        {posts?.map((item) => (
-          <Card key={item._id} item={item} />
-        ))}
+        {posts
+          ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Ordena do mais recente para o mais antigo
+          .map((item) => (
+            <Card key={item._id} item={item} />
+          ))}
       </div>
       <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext} />
     </div>

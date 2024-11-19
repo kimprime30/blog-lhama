@@ -1,0 +1,19 @@
+.layoutContainer {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--textColor);
+}
+
+.sidebar {
+  width: 260px;
+  background-color: var(--softBg);
+  color: var(--softTextColor);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 20px;
+}

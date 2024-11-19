@@ -1,0 +1,73 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--bg);
+  color: var(--textColor);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--softTextColor);
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--softTextColor);
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: var(--softBg);
+  color: var(--textColor);
+}
+
+.editor {
+  margin-top: 20px;
+}
+
+.button {
+  background-color: var(--softBg);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.addButton {
+  background-color: var(--softBg);
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.textArea {
+  margin-top: 20px;
+  background-color: var(--softBg);
+  padding: 10px;
+  border-radius: 5px;
+  min-height: 200px;
+}
+
+.publish {
+  margin-top: 20px;
+  background-color: var(--softBg);
+  color: var(--textColor);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
